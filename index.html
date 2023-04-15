@@ -4,10 +4,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DynaPuff&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
     <title>Carlos Framework Document</title>
   </head>
   <body>
-    <h1>CARLOS MVC FRAMEWORK DOCS</h1>
+    <h1>CARLOS FRAMEWORK DOCS</h1>
 
     <h2>Introduction</h2>
 
@@ -22,20 +33,20 @@
     <h3>Step 1</h3>
 
     <p>
-      To get started with this framework change the REWRITEBASE in
+      To get started with this framework change the REWRITEBASE path in
       /public/.htaccess
     </p>
 
-    <!--
-    <IfModule mod_rewrite.c>
-      Options -Multiviews
-      RewriteEngine On
-      RewriteBase /mvc_framework/public > REPLACE "mvc_framwork" TO YOUR PREFERED DIR NAME <
-      RewriteCond %{REQUEST_FILENAME} !-d
-      RewriteCond %{REQUEST_FILENAME} !-f
-      RewriteRule  ^(.+)$ index.php?url=$1 [QSA,L]
-    </IfModule>
-  -->
+    <pre>
+      <code>
+        Options -Multiviews
+        RewriteEngine On
+        <span class="enphasize">RewriteBase /mvc_framework/public</span> // e.g., /your_directory/public //
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteRule  ^(.+)$ index.php?url=$1 [QSA,L]
+    </code>
+  </pre>
 
     <h3>Step 2</h3>
 
@@ -44,23 +55,24 @@
       /app/config/config.php
     </p>
 
-    <!-- 
-    <?php
-    // Database Params
-    define('DB_HOST', 'localhost');
-    define('DB_USER', '_YOUR_USER_'); < HERE <
-    define('DB_PASS', '_YOUR_PASSWORD_'); < HERE <
-    define('DB_NAME', '_YOUR_DATABASE_NAME_'); < HERE <
-
-    // App Root
-    define('APPROOT', dirname(dirname(__FILE__)));
-
-    // URL Root
-    define('URLROOT', '_YOUR_URL_'); < HERE <
-
-    // Site Name
-    define('SITENAME', "_YOUR_SITE_NAME_"); < HERE <
-  -->
+    <pre>
+      <code>
+      // Database Params
+        define('DB_HOST', 'localhost');
+        define('DB_USER', <span class="enphasize">'_YOUR_USER_'</span>); 
+        define('DB_PASS', <span class="enphasize">'_YOUR_PASSWORD_'</span>);
+        define('DB_NAME', <span class="enphasize">'_YOUR_DATABASE_NAME_'</span>);
+    
+      // App Root
+        define('APPROOT', dirname(dirname(__FILE__)));
+    
+      // URL Root
+        define('URLROOT', <span class="enphasize">'_YOUR_URL_'</span>);
+    
+      // Site Name
+        define('SITENAME', <span class="enphasize">"_YOUR_SITE_NAME_"</span>);
+      </code>
+    </pre>
 
     <h2>Controllers</h2>
 
@@ -70,20 +82,20 @@
       Controller class which comes with two main methods "model" and "view" for
       fetching data and rendering.
     </p>
-
-    <!-- <?php
-      
-    class User extends Controller {
-
-      public function index()
-      {
-        $userModel = $this->model('UserModel');
-        $users = $userModel->getAll(); 
-        $this->view('pages/index', $users);
-      }
+    <pre>
+      <code>
+      class User extends Controller {
     
-    } 
-  -->
+        public function index()
+        {
+          $userModel = $this->model('UserModel');
+          $users = $userModel->getAll(); 
+          $this->view('pages/index', $users);
+        }
+        
+      } 
+      </code>
+    </pre>
 
     <p>
       This controller has an index method that fetches all the users from the
@@ -101,17 +113,21 @@
       Model class.
     </p>
 
-    <!-- <?php
+    <pre>
+      <code>
+      class UserModel extends Model {
 
-    class UserModel extends Model {
-      public function getAll()
-      {
-      $stmt = $this->db->query('SELECT * FROM users');
-      return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        public function getAll()
+        {
+
+        $stmt = $this->db->query('SELECT * FROM users'); 
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        }
+
       }
-
-    }  
-  -->
+      </code>
+    </pre>
 
     <p>
       This model has a getAll method that fetches all the users from the users
@@ -127,20 +143,30 @@
       code to display data.
     </p>
 
-    <!-- <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Home Page</title>
-      </head>
-      <body>
-        <h1>Users</h1>
-        <ul>
-          <?php foreach ($users as $user): ?>
-          <li> <?php $user['name'] ?> </li>
-          <?php endforeach ?>
-        </ul>
-      </body>
-    </html> -->
+    <pre>
+      <code>
+       <span><</span>html>
+        <span><</span>head>
+          <span><</span>title>Home Page<span><</span>/title>
+        <span><</span>/head>
+        <span><</span>body>
+
+          <span><</span>h1>Users<span><</span>/h1>
+
+          <span><</span>ul>
+          <div class="enphasize">
+            <span><</span>?php foreach ($users as $user): ?>
+  
+              <span><</span>li> <span><</span>?php $user['name'] ?> <span><</span>/li>
+  
+            <span><</span>?php endforeach ?>
+          </div>
+          <span><</span>/ul>
+
+        <span><</span>/body>
+       <span><</span>/html>
+      </code>
+    </pre>
 
     <p>
       This view displays a list of users that was passed from the controller as
@@ -155,12 +181,11 @@
       configuration is stored in the config/config.php. If you want to know more
       about how PDO works, please refer to its
       <a href="https://www.php.net/manual/en/book.pdo.php" target="_blank"
-        >docummentation</a
+        >documentation</a
       >.
     </p>
 
-    <h3>Contact</h3>
-
+    <h4>Contact</h4>
     <p>Any Suggestions? Contact me at carlepsvieira@gmail.com</p>
   </body>
 </html>

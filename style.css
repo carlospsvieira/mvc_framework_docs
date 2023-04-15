@@ -1,0 +1,31 @@
+body {
+  padding: 1rem 5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+  font-family: 'DynaPuff', cursive;
+  font-size: 3rem;
+  /* font-weight: 400; */
+}
+
+p {
+  max-width: 50%;
+  font-size: 1.2rem;
+}
+
+h2, h4 {
+  font-size: 1.8rem;
+}
+
+pre {
+  color: white;
+  background-color: #454545;
+  max-width: 50%;
+  font-size: large;
+  border-radius: 10px;
+}
+
+.enphasize {
+  color: yellow;
+}
