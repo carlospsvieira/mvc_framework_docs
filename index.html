@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carlos Framework Document</title>
+  </head>
+  <body>
+    <h1>CARLOS MVC FRAMEWORK DOCS</h1>
+
+    <h2>Introduction</h2>
+
+    <p>
+      This framework follows the Model-View-Controller (MVC) design pattern, and
+      provides a simple and efficient way to develop web applications. In this
+      document, I will explain how to use the framework and how to configure it.
+    </p>
+
+    <h2>Getting Started</h2>
+
+    <h3>Step 1</h3>
+
+    <p>
+      To get started with this framework change the REWRITEBASE in
+      /public/.htaccess
+    </p>
+
+    <!--
+    <IfModule mod_rewrite.c>
+      Options -Multiviews
+      RewriteEngine On
+      RewriteBase /mvc_framework/public > REPLACE "mvc_framwork" TO YOUR PREFERED DIR NAME <
+      RewriteCond %{REQUEST_FILENAME} !-d
+      RewriteCond %{REQUEST_FILENAME} !-f
+      RewriteRule  ^(.+)$ index.php?url=$1 [QSA,L]
+    </IfModule>
+  -->
+
+    <h3>Step 2</h3>
+
+    <p>
+      Define your own DATABASE PARAMS, URL ROOT and SITE NAME in
+      /app/config/config.php
+    </p>
+
+    <!-- 
+    <?php
+    // Database Params
+    define('DB_HOST', 'localhost');
+    define('DB_USER', '_YOUR_USER_'); < HERE <
+    define('DB_PASS', '_YOUR_PASSWORD_'); < HERE <
+    define('DB_NAME', '_YOUR_DATABASE_NAME_'); < HERE <
+
+    // App Root
+    define('APPROOT', dirname(dirname(__FILE__)));
+
+    // URL Root
+    define('URLROOT', '_YOUR_URL_'); < HERE <
+
+    // Site Name
+    define('SITENAME', "_YOUR_SITE_NAME_"); < HERE <
+  -->
+
+    <h2>Controllers</h2>
+
+    <p>
+      Controllers are responsible for handling incoming requests and generating
+      responses. A controller is defined as a PHP class that extends the
+      Controller class which comes with two main methods "model" and "view" for
+      fetching data and rendering.
+    </p>
+
+    <!-- <?php
+      
+    class User extends Controller {
+
+      public function index()
+      {
+        $userModel = $this->model('UserModel');
+        $users = $userModel->getAll(); 
+        $this->view('pages/index', $users);
+      }
+    
+    } 
+  -->
+
+    <p>
+      This controller has an index method that fetches all the users from the
+      model method that takes a string containing the name of your model and
+      renders the index view with the users data. The view method takes a path
+      to your view page and the data to be passed as arguments. You can create
+      more controllers and actions to handle different requests.
+    </p>
+
+    <h2>Models</h2>
+
+    <p>
+      Models are responsible for interacting with the database and fetching data
+      for the controllers. A model is defined as a PHP class that extends the
+      Model class.
+    </p>
+
+    <!-- <?php
+
+    class UserModel extends Model {
+      public function getAll()
+      {
+      $stmt = $this->db->query('SELECT * FROM users');
+      return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+      }
+
+    }  
+  -->
+
+    <p>
+      This model has a getAll method that fetches all the users from the users
+      table in the database. You can create more models and methods to fetch
+      different data.
+    </p>
+
+    <h2>Views</h2>
+
+    <p>
+      Views are responsible for rendering the response that will be sent back to
+      the client. A view is defined as a PHP file that contains HTML and PHP
+      code to display data.
+    </p>
+
+    <!-- <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Home Page</title>
+      </head>
+      <body>
+        <h1>Users</h1>
+        <ul>
+          <?php foreach ($users as $user): ?>
+          <li> <?php $user['name'] ?> </li>
+          <?php endforeach ?>
+        </ul>
+      </body>
+    </html> -->
+
+    <p>
+      This view displays a list of users that was passed from the controller as
+      an array. You can create more views and templates to display different
+      data.
+    </p>
+
+    <h2>Database</h2>
+
+    <p>
+      This framework uses PDO to connect to the database. The database
+      configuration is stored in the config/config.php. If you want to know more
+      about how PDO works, please refer to its
+      <a href="https://www.php.net/manual/en/book.pdo.php" target="_blank"
+        >docummentation</a
+      >.
+    </p>
+
+    <h3>Contact</h3>
+
+    <p>Any Suggestions? Contact me at carlepsvieira@gmail.com</p>
+  </body>
+</html>
