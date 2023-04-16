@@ -18,174 +18,177 @@
     <title>Carlos Framework Document</title>
   </head>
   <body>
-    <h1>CARLOS FRAMEWORK DOCS</h1>
+    <div class="container">
+      <h1>CARLOS FRAMEWORK DOCS</h1>
 
-    <h2>Introduction</h2>
+      <h2>Introduction</h2>
 
-    <p>
-      This framework follows the Model-View-Controller (MVC) design pattern, and
-      provides a simple and efficient way to develop web applications. In this
-      document, I will explain how to use the framework and how to configure it.
-    </p>
+      <p>
+        This framework follows the Model-View-Controller (MVC) design pattern,
+        and provides a simple and efficient way to develop web applications. In
+        this document, I will explain how to use the framework and how to
+        configure it.
+      </p>
 
-    <h2>Getting Started</h2>
+      <h2>Getting Started</h2>
 
-    <h3>Step 1</h3>
+      <h3>Step 1</h3>
 
-    <p>
-      To get started with this framework change the REWRITEBASE path in
-      /public/.htaccess
-    </p>
+      <p>
+        To get started with this framework change the REWRITEBASE path in
+        /public/.htaccess
+      </p>
 
-    <pre>
-      <code>
+      <pre>
+      <code>  
         Options -Multiviews
         RewriteEngine On
         <span class="enphasize">RewriteBase /mvc_framework/public</span> // e.g., /your_directory/public //
         RewriteCond %{REQUEST_FILENAME} !-d
         RewriteCond %{REQUEST_FILENAME} !-f
         RewriteRule  ^(.+)$ index.php?url=$1 [QSA,L]
-    </code>
-  </pre>
+      </code>
+      </pre>
 
-    <h3>Step 2</h3>
+      <h3>Step 2</h3>
 
-    <p>
-      Define your own DATABASE PARAMS, URL ROOT and SITE NAME in
-      /app/config/config.php
-    </p>
+      <p>
+        Define your own DATABASE PARAMS, URL ROOT and SITE NAME in
+        /app/config/config.php
+      </p>
 
-    <pre>
+      <pre>
       <code>
-      // Database Params
+        // Database Params
         define('DB_HOST', 'localhost');
         define('DB_USER', <span class="enphasize">'_YOUR_USER_'</span>); 
         define('DB_PASS', <span class="enphasize">'_YOUR_PASSWORD_'</span>);
         define('DB_NAME', <span class="enphasize">'_YOUR_DATABASE_NAME_'</span>);
-    
-      // App Root
+        
+        // App Root
         define('APPROOT', dirname(dirname(__FILE__)));
-    
-      // URL Root
+        
+        // URL Root
         define('URLROOT', <span class="enphasize">'_YOUR_URL_'</span>);
-    
-      // Site Name
+        
+        // Site Name
         define('SITENAME', <span class="enphasize">"_YOUR_SITE_NAME_"</span>);
       </code>
     </pre>
 
-    <h2>Controllers</h2>
+      <h2>Controllers</h2>
 
-    <p>
-      Controllers are responsible for handling incoming requests and generating
-      responses. A controller is defined as a PHP class that extends the
-      Controller class which comes with two main methods "model" and "view" for
-      fetching data and rendering.
-    </p>
-    <pre>
+      <p>
+        Controllers are responsible for handling incoming requests and
+        generating responses. A controller is defined as a PHP class that
+        extends the Controller class which comes with two main methods "model"
+        and "view" for fetching data and rendering.
+      </p>
+      <pre>
       <code>
-      class User extends Controller {
-    
-        public function index()
-        {
-          $userModel = $this->model('UserModel');
-          $users = $userModel->getAll(); 
-          $this->view('pages/index', $users);
-        }
-        
-      } 
+        class User extends Controller {
+          
+          public function index()
+          {
+            $userModel = $this->model('UserModel');
+            $users = $userModel->getAll(); 
+            $this->view('pages/index', $users);
+          }
+          
+        } 
       </code>
     </pre>
 
-    <p>
-      This controller has an index method that fetches all the users from the
-      model method that takes a string containing the name of your model and
-      renders the index view with the users data. The view method takes a path
-      to your view page and the data to be passed as arguments. You can create
-      more controllers and actions to handle different requests.
-    </p>
+      <p>
+        This controller has an index method that fetches all the users from the
+        model method that takes a string containing the name of your model and
+        renders the index view with the users data. The view method takes a path
+        to your view page and the data to be passed as arguments. You can create
+        more controllers and actions to handle different requests.
+      </p>
 
-    <h2>Models</h2>
+      <h2>Models</h2>
 
-    <p>
-      Models are responsible for interacting with the database and fetching data
-      for the controllers. A model is defined as a PHP class that extends the
-      Model class.
-    </p>
+      <p>
+        Models are responsible for interacting with the database and fetching
+        data for the controllers. A model is defined as a PHP class that extends
+        the Model class.
+      </p>
 
-    <pre>
+      <pre>
       <code>
-      class UserModel extends Model {
-
-        public function getAll()
-        {
-
-        $stmt = $this->db->query('SELECT * FROM users'); 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        class UserModel extends Model {
+          
+          public function getAll()
+          {
+            
+            $stmt = $this->db->query('SELECT * FROM users'); 
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+          }
+          
         }
-
-      }
       </code>
     </pre>
 
-    <p>
-      This model has a getAll method that fetches all the users from the users
-      table in the database. You can create more models and methods to fetch
-      different data.
-    </p>
+      <p>
+        This model has a getAll method that fetches all the users from the users
+        table in the database. You can create more models and methods to fetch
+        different data.
+      </p>
 
-    <h2>Views</h2>
+      <h2>Views</h2>
 
-    <p>
-      Views are responsible for rendering the response that will be sent back to
-      the client. A view is defined as a PHP file that contains HTML and PHP
-      code to display data.
-    </p>
+      <p>
+        Views are responsible for rendering the response that will be sent back
+        to the client. A view is defined as a PHP file that contains HTML and
+        PHP code to display data.
+      </p>
 
-    <pre>
+      <pre>
       <code>
-       <span><</span>html>
+        <span><</span>html>
         <span><</span>head>
-          <span><</span>title>Home Page<span><</span>/title>
+        <span><</span>title>Home Page<span><</span>/title>
         <span><</span>/head>
         <span><</span>body>
-
-          <span><</span>h1>Users<span><</span>/h1>
-
-          <span><</span>ul>
-          <div class="enphasize">
-            <span><</span>?php foreach ($users as $user): ?>
-  
-              <span><</span>li> <span><</span>?php $user['name'] ?> <span><</span>/li>
-  
-            <span><</span>?php endforeach ?>
-          </div>
-          <span><</span>/ul>
-
+        
+        <span><</span>h1>Users<span><</span>/h1>
+        
+        <span><</span>ul>
+        <div class="enphasize">
+          <span><</span>?php foreach ($users as $user): ?>
+          
+          <span><</span>li> <span><</span>?php $user['name'] ?> <span><</span>/li>
+          
+          <span><</span>?php endforeach ?>
+        </div>
+        <span><</span>/ul>
+        
         <span><</span>/body>
-       <span><</span>/html>
+        <span><</span>/html>
       </code>
     </pre>
 
-    <p>
-      This view displays a list of users that was passed from the controller as
-      an array. You can create more views and templates to display different
-      data.
-    </p>
+      <p>
+        This view displays a list of users that was passed from the controller
+        as an array. You can create more views and templates to display
+        different data.
+      </p>
 
-    <h2>Database</h2>
+      <h2>Database</h2>
 
-    <p>
-      This framework uses PDO to connect to the database. The database
-      configuration is stored in the config/config.php. If you want to know more
-      about how PDO works, please refer to its
-      <a href="https://www.php.net/manual/en/book.pdo.php" target="_blank"
-        >documentation</a
-      >.
-    </p>
+      <p>
+        This framework uses PDO to connect to the database. The database
+        configuration is stored in the config/config.php. If you want to know
+        more about how PDO works, please refer to its
+        <a href="https://www.php.net/manual/en/book.pdo.php" target="_blank"
+          >documentation</a
+        >.
+      </p>
 
-    <h4>Contact</h4>
-    <p>Any Suggestions? Contact me at carlepsvieira@gmail.com</p>
+      <h4>Contact</h4>
+      <p>Any Suggestions? Contact me at carlepsvieira@gmail.com</p>
+    </div>
   </body>
 </html>
