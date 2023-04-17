@@ -32,6 +32,11 @@ pre {
   color: yellow;
 }
 
+.attention {
+  color: rgb(255, 30, 30);
+  font-weight: 600;
+}
+
 @media only screen and (max-width: 1200px) {
   .container {
     display: flex;
