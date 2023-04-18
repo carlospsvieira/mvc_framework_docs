@@ -76,16 +76,16 @@
       </code>
     </pre>
 
-    * When in development stage your URL root must start with a "/" (forward slash)
+      * When in development stage your URL root must start with a "/" (forward
+      slash)
 
-    <p>
-      <span class="attention">ATTENTION</span> - 
-      There should be three (3) .htaccess files in this framework,
-      however if you clone the repository instead of downloading the zip file, 
-      you will only see the .htaccess (which are hidden) in your code editor.
-      When in doubt, check the original repository.
-    </p> 
-
+      <p>
+        <span class="attention">ATTENTION</span> - There should be three (3)
+        .htaccess files in this framework, however if you clone the repository
+        instead of downloading the zip file, you will only see the .htaccess
+        (which are hidden) in your code editor. When in doubt, check the
+        original repository.
+      </p>
 
       <h2>Controllers</h2>
 
@@ -185,6 +185,89 @@
         This view displays a list of users that was passed from the controller
         as an array. You can create more views and templates to display
         different data.
+      </p>
+
+      <h2>Routes</h2>
+
+      <p>
+        Routes in this framework works based on currentController and
+        controllerMethod from the Core class. They are set as default 'Pages'
+        and 'index', so the base url will be "yourwebsite/" as long as there is
+        a Pages class in your controllers directory and a method index.
+      </p>
+
+      <pre>
+        <code>
+          // app/controllers/Pages.php
+
+          class Pages {
+
+            public function index() {
+              echo "Welcome to the main page!";
+            }
+
+            public function about() {
+              echo "This is the About page"
+            }
+          }
+        </code>
+      </pre>
+
+      <p>
+        However if you want to access the About page, you have to add a "/pages"
+        to the url path, e.g., "yourwebsite/pages/about". If you want to remove
+        the "/pages" from the url path to access the About page from "yourwebsite/about", 
+        you can uncomment the code below in Core.php
+      </p>
+
+      <pre>
+        <code>
+          // app/libraries/Core.php
+
+          ...
+
+   <span class="enphasize">UNCOMMENT THE CODE BELOW</span>
+
+          // // Handle base URL without adding controller class name in it //
+    // if ($url[0] === <span class="enphasize">'about'</span>) {
+    //   // Set controller to Pages
+    //   $this->currentController = 'Pages';
+    //   // Set method to about
+    //   $this->currentMethod = <span class="enphasize">'about'</span>;
+    //   // Unset 0 index
+    //   unset($url[0]);
+    // } else {
+    //   // Look in controllers for first value
+    //   if (isset($url[0]) && file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
+    //     // If exists, set as controller
+    //     $this->currentController = ucwords($url[0]);
+    //     // Unset 0 index
+    //     unset($url[0]);
+    //   }
+    // }
+
+   <span class="enphasize">REMOVE OR COMMENT OUT THE CODE BELOW, THIS IS REPEATING CODE</span> 
+
+    // Look in controllers for first value
+    if (isset($url[0]) && file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
+      // If exists, set as controller
+      $this->currentController = ucwords($url[0]);
+      // Unset 0 index
+      unset($url[0]);
+    }
+
+    ...
+        </code>
+      </pre>
+
+      <p>
+        Now you should be able to access your About page from the
+        "yourwebsite/about".
+      </p>
+      <p>
+        For any other path, e.g, "yourwebsite/users", you do not have to change
+        anything in Core.php, all you need is a class in the controllers
+        directory called Users.
       </p>
 
       <h2>Database</h2>
